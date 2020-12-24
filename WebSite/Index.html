@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<link rel="stylesheet" type="text/css" href="CSS/Style.css">
+</head>
+<body>
+    <header>
+        
+        <div class="nav">
+                <ul class="main">
+                    <li class="active"><a href="index.html">Home</a></li>
+                    <li><a href="">Our Game</a></li>
+                    <li><a href="aboutus.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                 </ul>
+    </div>
+    </header>
+    <div id="title" class="title">
+        <h1>asdasdasdads</h1>
+    </div>
+
+    <div class="button">
+        <button type="button" class="btn btn-outline-light" onclick="myFunction()">Learn more about the game</button>
+
+        <div id="cont">
+            <div class="row bg-light" id="text" style="display: none;">
+              
+                <div class="col-12" id="info">
+                    <br>
+                    <p class="text-justify">Hello
+                    </p>
+    
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function myFunction() {
+          var x = document.getElementById("text");
+          var y=document.getElementById("title");
+          if (x.style.display === "none") {
+            x.style.display = "block";
+            y.style.display="none";
+          } else {
+            x.style.display = "none";
+            y.style.display="block";
+          }
+        }
+        </script>
+</body>
+</html>
