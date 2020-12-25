@@ -1,0 +1,115 @@
+*{
+	margin: 0;
+	padding: 0;
+	font-family: Century Gothic;
+}
+
+.nav ul{
+	float: right;
+	list-style-type: none; 
+    margin-top: 15px;
+  
+    
+}
+
+.nav ul li{
+	display: inline-block;
+}
+ 
+.nav ul li a{
+	text-decoration: none;
+	color: rgb(255, 255, 255);
+	padding:5px 20px;
+	border: 1px solid transparent;
+	transition: 0.6s ease;
+}
+
+.nav ul li.active a
+{
+	background-color:#ffffff;
+	opacity: 0.6;
+	color: #000;
+}
+
+.nav ul li a:hover{
+    background-color:#fff;
+    opacity: 0.6;
+	color: #000;
+}
+  
+
+
+
+
+.contact-section{
+    background: url(contact.jpg) no-repeat center;
+    background-size: cover;
+    padding: 40px 0;
+  
+    height: 91.5vh;
+    background-size: cover;
+    background-position: center;
+}
+
+.contact-section h1{
+    text-align: center;
+    color: gray;
+     
+}
+.border{
+    width: 100px;
+    height: 20px;
+    margin: 40px auto;
+}
+  
+#SubmitButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+  
+.contact-form{
+  
+    max-width: 700px;
+    margin:auto;
+    padding: 0 10px;
+    overflow: hidden;
+}
+  
+.contact-form-text{
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 16px 0;
+    border: 0;
+    background: #111;
+    padding: 20px 40px;
+    outline: none;
+    color: #ddd;
+    transition: 0.5s;
+  }
+.contact-form-text:focus{
+    box-shadow: 0 0 10px 4px #34495e;
+}
+
+textarea.contact-form-text{
+    resize: none;
+    height: 120px;
+  }
+.contact-form-btn{
+    float: right;
+    border: 0;
+    background: #34495e;
+    color: #fff;
+    padding: 12px 50px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.contact-form-btn:hover{
+    background: #2980b9;
+  }
