@@ -46,7 +46,7 @@ void checkCoordinates(int& errors, string coordinates)
 			}
 		}
 	}
-	if (coordinates.size() < 4)
+	if (coordinates.size() != 4)
 	{
 		errors++;
 	}
@@ -70,7 +70,7 @@ void menu(int* numbers, string& coordinates)
 {
 	int choice;
 	stringstream ss;
-	cout << "Welcome to the game!" << endl;
+	cout << "\nWelcome to the game!" << endl;
 	cout << "1. Singleplayer" << endl;
 	cout << "2. Multiplayer" << endl;
 	cin >> choice;
