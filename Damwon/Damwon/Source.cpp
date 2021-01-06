@@ -1,5 +1,15 @@
 #include "game.h"
 
+void checkForWrongInput(int& variable) 
+{
+	while (cin.fail())
+	{
+		cout << "Enter a number, please!" << endl;
+		cin.clear();
+		cin.ignore(256, '\n');
+		cin >> variable;
+	}
+}
 void generateRandomNumbers(int* numbers)
 {
 	srand(time(NULL));
@@ -36,6 +46,10 @@ void checkCoordinates(int& errors, string coordinates)
 			}
 		}
 	}
+	if (coordinates.size() < 4)
+	{
+		errors++;
+	}
 }
 void userInputCoordinates(string& coordinates)
 {
@@ -46,9 +60,9 @@ void userInputCoordinates(string& coordinates)
 	while (errors > 0)
 	{
 		cout << "Your coordinates can include only numbers from 0 to 7\n";
-		cin >> coordinates;
 		errors = 0;
 		cout << "Enter new coordinates: ";
+		cin >> coordinates;
 		checkCoordinates(errors, coordinates);
 	}
 }
@@ -60,6 +74,7 @@ void menu(int* numbers, string& coordinates)
 	cout << "1. Singleplayer" << endl;
 	cout << "2. Multiplayer" << endl;
 	cin >> choice;
+	checkForWrongInput(choice);
 	switch (choice)
 	{
 	case 1:
@@ -71,21 +86,17 @@ void menu(int* numbers, string& coordinates)
 		userInputCoordinates(coordinates);
 		break;
 	default: cout << "Invalid choice!";
-		break;
+		menu(numbers,coordinates);
 	}
 }
-void game()
+void guesses(string coordinates)
 {
 	int guessedNumberAndPos = 0;
 	int guessedNumbers = 0;
-	int numbers[4];
 	int tries = 0;
 	int errors = 0;
-	string coordinates;
 	string guess;
 	bool win = 0;
-	menu(numbers, coordinates);
-	srand(time(NULL));
 	while (win != 1 and tries != 13) {
 		guessedNumberAndPos = 0;
 		guessedNumbers = 0;
@@ -141,4 +152,12 @@ void game()
 			}
 		}
 	}
+}
+void game()
+{
+	int numbers[4];
+	string coordinates;
+	menu(numbers, coordinates);
+	srand(time(NULL));
+	guesses(coordinates);
 }

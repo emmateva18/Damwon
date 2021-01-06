@@ -7,6 +7,8 @@
 
 using namespace std;
 
+void checkForWrongInput(int& variable);
+
 void generateRandomNumbers(int* numbers);
 
 void checkCoordinates(int& errors, string coordinates);
