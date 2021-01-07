@@ -245,8 +245,9 @@ void generateRandomNumbers(int* numbers)
 	} while (numbers[3] == numbers[0] or numbers[3] == numbers[1] or numbers[3] == numbers[2]);
 }
 
-void displayWarnings(int error1, int error2, int error3, char min, char max,int size)
+void displayWarnings(int error1, int error2, int error3,int error4, char min, char max,int size)
 {
+	system("cls");
 	color(12);
 	if (error1)
 	{
@@ -260,6 +261,10 @@ void displayWarnings(int error1, int error2, int error3, char min, char max,int 
 	{
 		cout << "\nYour coordinates include more or less numbers than needed! (" << size << ")"<<endl;
 	}
+	if (error4)
+	{
+		cout << "\nYour coordinates include spaces!"<< endl;
+	}
 	color(7);
 }
 
@@ -268,6 +273,7 @@ void checkCoordinates(int& errors, string coordinates, char min, char max, int s
 	int error1 = 0;
 	int error2 = 0;
 	int error3 = 0;
+	int error4 = 0;
 	if (duplicates == 0)
 	{
 		for (size_t i = 0; i < coordinates.length(); i++)
@@ -295,7 +301,12 @@ void checkCoordinates(int& errors, string coordinates, char min, char max, int s
 		error3++;
 		errors++;
 	}
-	displayWarnings(error1, error2, error3, min, max,size);
+	if (coordinates.find(' ') != string::npos)
+	{
+		error4++;
+		errors++;
+	}
+	displayWarnings(error1, error2, error3,error4, min, max,size);
 }
 
 void userInputCoordinates(string& coordinates)
@@ -469,7 +480,7 @@ void customMode()
 	}
 
 	temporaryPlayer.tries = tries;
-
+	cin.ignore();
 	for (int k = 0; k < playersCount; k++)
 	{
 		guesses.clear();
@@ -482,13 +493,13 @@ void customMode()
 			guessedNumberAndPosCount = 0;
 			guessedCount = 0;
 			cout << "Enter coordinates: ";
-			cin >> guess;
+			getline(cin, guess);
 			checkCoordinates(errors, guess, '0', char(possibleRange) + '0', countNumbers, duplicates);
 			while (errors > 0)
 			{
 				errors = 0;
 				cout << "\nEnter new coordinates: ";
-				cin >> guess;
+				getline(cin, guess);
 				checkCoordinates(errors, guess, '0', char(possibleRange) + '0', countNumbers, duplicates);
 			}
 			temporaryCoordinates = coordinates[k];
@@ -574,6 +585,7 @@ void guesses(string coordinates)
 	string guess;
 	GUESS temp;
 	vector<GUESS> guesses;
+	cin.ignore();
 	cout << "\nMake a guess\n" << endl;
 	cout << "You have to enter 4 different numbers without any spaces from 0 to 7!\n";
 	while (win != 1 and tries != 0) {
@@ -584,13 +596,13 @@ void guesses(string coordinates)
 		guessedNumberAndPos = 0;
 		guessedNumbers = 0;
 		cout << "Enter coordinates: ";
-		cin >> guess;
+		getline(cin, guess);
 		checkCoordinates(errors, guess, '0', '7', 4);
 		while (errors > 0)
 		{
 			errors = 0;
 			cout << "\nEnter new coordinates: ";
-			cin >> guess;
+			getline(cin, guess);
 			checkCoordinates(errors, guess, '0', '7', 4);
 		}
 		for (size_t i = 0; i < coordinates.length(); i++) {
