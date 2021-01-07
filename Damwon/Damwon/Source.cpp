@@ -1,5 +1,4 @@
 #include "game.h"
-#include "structures.h"
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
@@ -67,7 +66,7 @@ void guessInput(string& coordinates)
 void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 {
 	int count = guessedNum + guessedNumAndPos;
-	if (guessedNumAndPos> 4)
+	if (guessedNumAndPos > 4)
 	{
 		for (int i = 0; i < (guessedNumAndPos - 4) * 5; i++)
 		{
@@ -75,6 +74,13 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 		}
 	}
 	cout << "     Guessed numbers and positions";
+	if (guessedNumAndPos > 4)
+	{
+		for (int i = 0; i < (guessedNumAndPos - 4) * 5; i++)
+		{
+			cout << " ";
+		}
+	}
 	cout << "               Player's guesses";
 	if (guessedNum > 4)
 	{
@@ -83,7 +89,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 			cout << " ";
 		}
 	}
-	cout<<"               Guessed numbers" << endl; 
+	cout << "               Guessed numbers" << endl;
 	color(10);
 	for (int i = 0; i < count; i++)
 	{
@@ -92,7 +98,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 			color(12);
 			if (guessedNumAndPos < 4)
 			{
-				for (int j = 0; j < (4 - guessedNumAndPos) * 10+28; j++)
+				for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 28; j++)
 				{
 					cout << " ";
 
@@ -142,7 +148,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 	color(12);
 	if (guessedNumAndPos < 4)
 	{
-		for (int j = 0; j < (4 - guessedNumAndPos) * 10+15 - (guess.size() - 4) / 2; j++)
+		for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 15 - (guess.size() - 4) / 2; j++)
 		{
 			cout << " ";
 		}
@@ -155,7 +161,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 		}
 	}
 	cout << guess;
-	for (int i = 0; i < 11 - guess.size()/2; i++)
+	for (int i = 0; i < 11 - guess.size() / 2; i++)
 	{
 		cout << " ";
 	}
@@ -239,8 +245,29 @@ void generateRandomNumbers(int* numbers)
 	} while (numbers[3] == numbers[0] or numbers[3] == numbers[1] or numbers[3] == numbers[2]);
 }
 
-void checkCoordinates(int& errors, string coordinates, char min, char max, int size,bool duplicates=0)
+void displayWarnings(int error1, int error2, int error3, char min, char max,int size)
 {
+	color(12);
+	if (error1)
+	{
+		cout << "\nYour coordinates include duplicates (same numbers)!\n";
+	}
+	if (error2)
+	{
+		cout << "\nYour coordinates can include only numbers from " << int(min - '0') << " to " << int(max - '0') << "!\n";
+	}
+	if (error3)
+	{
+		cout << "\nYour coordinates include more or less numbers than needed! (" << size << ")"<<endl;
+	}
+	color(7);
+}
+
+void checkCoordinates(int& errors, string coordinates, char min, char max, int size, bool duplicates = 0)
+{
+	int error1 = 0;
+	int error2 = 0;
+	int error3 = 0;
 	if (duplicates == 0)
 	{
 		for (size_t i = 0; i < coordinates.length(); i++)
@@ -249,6 +276,7 @@ void checkCoordinates(int& errors, string coordinates, char min, char max, int s
 			{
 				if (coordinates[i] == coordinates[j] and i != j)
 				{
+					error1++;
 					errors++;
 				}
 			}
@@ -258,13 +286,16 @@ void checkCoordinates(int& errors, string coordinates, char min, char max, int s
 	{
 		if (coordinates[i] < min or coordinates[i]> max)
 		{
+			error2++;
 			errors++;
 		}
 	}
 	if (coordinates.size() != size)
 	{
+		error3++;
 		errors++;
 	}
+	displayWarnings(error1, error2, error3, min, max,size);
 }
 
 void userInputCoordinates(string& coordinates)
@@ -275,7 +306,6 @@ void userInputCoordinates(string& coordinates)
 	checkCoordinates(errors, coordinates, '0', '7', 4);
 	while (errors > 0)
 	{
-		cout << "\nYour coordinates can include only numbers from 0 to 7 and it should consist of four numbers!\n";
 		errors = 0;
 		cout << "Enter new coordinates: ";
 		coordinates = "";
@@ -290,7 +320,7 @@ void customGameValidation(int& variable, int min, int max)
 	checkForWrongInput(variable);
 	while (variable > max or variable < min)
 	{
-		cout << "\nSomething went wrong! Try again: ";
+		cout << "\nEnter a number in the valid range: ";
 		cin >> variable;
 		checkForWrongInput(variable);
 	}
@@ -313,49 +343,62 @@ void gameInterface(vector<GUESS> guesses, int tries, int numbers, int playerID =
 
 void customMode()
 {
-	int players;
-	int N;
+	int playersCount;
+	int countNumbers;
 	int tries;
 	int choice;
-	int range;
-	int numbers[10];
-	int guessedNumberAndPos = 0;
-	int guessedNumbers = 0;
+	int possibleRange;
+	int guessedNumberAndPosCount = 0;
+	int guessedCount = 0;
 	int errors = 0;
+	int max = 0;
+	int i = 0;
+	int j = 0;
+	int numbers[10];
+
+	bool win;
 	bool duplicates = 0;
+
 	string guess;
+	string temporaryCoordinates;
+
+	stringstream ss;
+
+	GUESS temporaryGuess;
+
+	PLAYER temporaryPlayer;
+
 	vector<string> coordinates;
 	vector<GUESS> guesses;
-	GUESS temp;
-	PLAYER temp2;
-	vector<PLAYER> player;
-	stringstream ss;
+	vector<PLAYER> players;
+
 	cout << "Enter how many players are you | from 1 to 4: ";
-	customGameValidation(players, 1, 4);
+	customGameValidation(playersCount, 1, 4);
 	cout << "Enter how many numbers your coordinates will consist of | from 4 to 10: ";
-	customGameValidation(N, 4, 10);
+	customGameValidation(countNumbers, 4, 10);
 	cout << "Numbers that can be included are from 0 to (4/5/6/7/8/9): ";
-	customGameValidation(range, 4, 9);
+	customGameValidation(possibleRange, 4, 9);
 	cout << "\nEnter how many tries each player has | from 1 to 100: ";
 	customGameValidation(tries, 1, 100);
-	if (range >= N)
+
+	if (possibleRange >= countNumbers)
 	{
+		i = 0;
+		j = 0;
 		cout << "Do you want duplicates in the numbers?\n1. Yes\n2. No\nYour choice: ";
 		cin >> choice;
 		checkForWrongInput(choice);
-		int i = 0;
-		int j = 0;
 		switch (choice)
 		{
 		case 1:
-			for (int k = 0; k < players; k++)
+			for (int k = 0; k < playersCount; k++)
 			{
-				for (int i = 0; i < N; i++)
+				for (int i = 0; i < countNumbers; i++)
 				{
-					numbers[i] = rand() % (range + 1);
+					numbers[i] = rand() % (possibleRange + 1);
 				}
 				ss.str("");
-				for (int i = 0; i < N; i++)
+				for (int i = 0; i < countNumbers; i++)
 				{
 					ss << numbers[i];
 				}
@@ -364,13 +407,13 @@ void customMode()
 			duplicates = 1;
 			break;
 		case 2:
-			for (int k = 0; k < players; k++)
+			for (int k = 0; k < playersCount; k++)
 			{
 				i = 0;
 				do
 				{
 					j = 0;
-					numbers[i] = rand() % (range + 1);
+					numbers[i] = rand() % (possibleRange + 1);
 					while (j < i)
 					{
 						if (numbers[i] != numbers[j])
@@ -380,20 +423,26 @@ void customMode()
 						else
 						{
 							j = 0;
-							numbers[i] = rand() % (range + 1);
+							numbers[i] = rand() % (possibleRange + 1);
 						}
 					}
 					i++;
-				} while (i < N);
+				} while (i < countNumbers);
+
 				ss.str("");
-				for (int i = 0; i < N; i++)
+
+				for (int i = 0; i < countNumbers; i++)
 				{
 					ss << numbers[i];
 				}
+
 				coordinates.push_back(ss.str());
+
 			}
 			break;
-		default: cout << "Invalid option!\nPlease try again: ";
+
+		default: 
+			cout << "Invalid option!\nPlease try again: ";
 			cin >> choice;
 			checkForWrongInput(choice);
 			break;
@@ -401,91 +450,101 @@ void customMode()
 	}
 	else
 	{
-		for (int k = 0; k < players; k++)
+		for (int k = 0; k < playersCount; k++)
 		{
-			for (int i = 0; i < N; i++)
+			for (int i = 0; i < countNumbers; i++)
 			{
-				numbers[i] = rand() % (range + 1);
+				numbers[i] = rand() % (possibleRange + 1);
 			}
+
 			ss.str("");
-			for (int i = 0; i < N; i++)
+			for (int i = 0; i < countNumbers; i++)
 			{
 				ss << numbers[i];
 			}
+
 			coordinates.push_back(ss.str());
 		}
 		duplicates = 1;
 	}
-	temp2.tries = tries;
-	
-	bool win;
-	int guessed[10];
-	for (int k = 0; k < players; k++)
+
+	temporaryPlayer.tries = tries;
+
+	for (int k = 0; k < playersCount; k++)
 	{
 		guesses.clear();
 		system("cls");
-		for (int i = 0; i < 10; i++)
-		{
-			guessed[i] = 11;
-		}
-		player.push_back(temp2);
+		players.push_back(temporaryPlayer);
 		win = 0;
 		cout << "\nMake a guess\n" << endl;
-		cout << "You have to enter " << N << " numbers without any spaces from 0 to " << range << "!\n";
-		while (win == 0 and player[k].tries != 0) {
-			guessedNumberAndPos = 0;
-			guessedNumbers = 0;
+		cout << "You have to enter " << countNumbers << " numbers without any spaces from 0 to " << possibleRange << "!\n";
+		while (win == 0 and players[k].tries != 0) {
+			guessedNumberAndPosCount = 0;
+			guessedCount = 0;
 			cout << "Enter coordinates: ";
 			cin >> guess;
-			checkCoordinates(errors, guess, '0', char(range) + '0', N,duplicates);
+			checkCoordinates(errors, guess, '0', char(possibleRange) + '0', countNumbers, duplicates);
 			while (errors > 0)
 			{
-				cout << "\nInvalid coordinates";
 				errors = 0;
-				cout << "\nEnter new " << N << " numbers without any spaces from 0 to " << range << ": ";
+				cout << "\nEnter new coordinates: ";
 				cin >> guess;
-				checkCoordinates(errors, guess, '0', char(range) + '0', N, duplicates);
+				checkCoordinates(errors, guess, '0', char(possibleRange) + '0', countNumbers, duplicates);
 			}
+			temporaryCoordinates = coordinates[k];
 			for (size_t i = 0; i < coordinates[k].length(); i++) {
 				if (guess[i] == coordinates[k][i]) {
-					guessed[guessedNumberAndPos++] = guess[i];
+					guessedNumberAndPosCount++;
 				}
 			}
-			for (size_t i = 0; i < coordinates[k].length(); i++)
+			for (size_t i = 0; i < guess.size(); i++)
 			{
 				for (int j = 0; j < coordinates[k].length(); j++)
 				{
 					if (guess[i] == coordinates[k][j])
 					{
-						guessedNumbers++;
+						guessedCount++;
+						if (coordinates[k].find(guess[i]) == coordinates[k].size() - 1)
+						{
+							coordinates[k].erase(coordinates[k].end() - 1);
+						}
+						else
+						{
+							for (int l = coordinates[k].find(guess[i]); l < coordinates[k].length() - 1; l++)
+							{
+								coordinates[k][l] = coordinates[k][l + 1];
+							}
+							coordinates[k].erase(coordinates[k].end() - 1);
+						}
+						break;
 					}
 				}
 			}
-			guessedNumbers -= guessedNumberAndPos;
-			temp.guessedPosAndNum = guessedNumberAndPos;
-			temp.guessedNum = guessedNumbers;
-			temp.guess = guess;
-			guesses.push_back(temp);
-			player[k].tries--;
-			gameInterface(guesses, player[k].tries, N, k+1);
-			if (guess==coordinates[k])
+			guessedCount -= guessedNumberAndPosCount;
+			coordinates[k] = temporaryCoordinates;
+			temporaryGuess.guessedPosAndNum = guessedNumberAndPosCount;
+			temporaryGuess.guessedNum = guessedCount;
+			temporaryGuess.guess = guess;
+			guesses.push_back(temporaryGuess);
+			players[k].tries--;
+			gameInterface(guesses, players[k].tries, countNumbers, k + 1);
+			if (guess == coordinates[k])
 			{
 				win = 1;
 			}
 		}
 	}
-	int max = 0;
-	for (int i = 0; i < players; i++)
+	for (int i = 0; i < playersCount; i++)
 	{
-		if (player[i].tries > max)
+		if (players[i].tries > max)
 		{
-			max = player[i].tries;
+			max = players[i].tries;
 		}
 	}
 	system("cls");
-	for (int i = 0; i < players; i++)
+	for (int i = 0; i < playersCount; i++)
 	{
-		cout << "\n\nPlayer " << i + 1 << "\nCoordinates: " << coordinates[i] << "\nScore: " << player[i].tries;
+		cout << "\n\nPlayer " << i + 1 << "\nCoordinates: " << coordinates[i] << "\nScore: " << players[i].tries + 1;
 	}
 	if (max == 0)
 	{
@@ -494,11 +553,11 @@ void customMode()
 	else
 	{
 		cout << "\n\nThe winners:\n";
-		for (int i = 0; i < players; i++)
+		for (int i = 0; i < playersCount; i++)
 		{
-			if (player[i].tries == max)
+			if (players[i].tries == max)
 			{
-				cout << "Player " << i+1 << endl;
+				cout << "Player " << i + 1 << endl;
 			}
 		}
 	}
@@ -510,24 +569,27 @@ void guesses(string coordinates)
 	int guessedNumbers = 0;
 	int tries = 13;
 	int errors = 0;
+	int guessed[4];
+	bool win = 0;
 	string guess;
 	GUESS temp;
 	vector<GUESS> guesses;
-	bool win = 0;
 	cout << "\nMake a guess\n" << endl;
 	cout << "You have to enter 4 different numbers without any spaces from 0 to 7!\n";
 	while (win != 1 and tries != 0) {
+		for (int i = 0; i < 4; i++)
+		{
+			guessed[i] = 8;   // unique value
+		}
 		guessedNumberAndPos = 0;
 		guessedNumbers = 0;
-		int guessed[4] = { 8,8,8,8 };
 		cout << "Enter coordinates: ";
 		cin >> guess;
 		checkCoordinates(errors, guess, '0', '7', 4);
 		while (errors > 0)
 		{
-			cout << "\nInvalid coordinates";
 			errors = 0;
-			cout << "\nEnter new 4 different numbers without any spaces from 0 to 7: ";
+			cout << "\nEnter new coordinates: ";
 			cin >> guess;
 			checkCoordinates(errors, guess, '0', '7', 4);
 		}
@@ -556,8 +618,8 @@ void guesses(string coordinates)
 		temp.guess = guess;
 		tries--;
 		guesses.push_back(temp);
-		gameInterface(guesses, tries,4);
-		if (guess==coordinates)
+		gameInterface(guesses, tries, 4);
+		if (guess == coordinates)
 		{
 			win = 1;
 			cout << "\nCongrats!\nYou guessed the coordinates!";
@@ -574,16 +636,26 @@ void guesses(string coordinates)
 
 void menu()
 {
+	int choice;
 	int numbers[4];
 	string coordinates;
-	int choice;
 	stringstream ss;
-	cout << "\nWelcome to the game!" << endl;
-	cout << "1. Singleplayer" << endl;
-	cout << "2. Multiplayer" << endl;
-	cout << "3. Custom mode" << endl;
+	cout << char(219) << "                Welcome to the game!                " <<char(219)<< endl;
+	cout << char(219);
+	for (int i = 0; i < 52; i++)
+		cout << char(254);
+	cout <<char(219)<< endl;
+	cout << char(219) << "1. Singleplayer     | Guess the coordinates         " << char(219) << endl;
+	cout << char(219) << "2. Multiplayer      | Create and guess coordinates  " << char(219) << endl;
+	cout << char(219) << "3. Custom mode      | Create your own rules and play" << char(219) << endl;
+	cout << char(219);
+	for (int i = 0; i < 52; i++)
+		cout << char(254);
+	cout << char(219) << endl;
+	cout <<char(219)<< " Your choice: ";
 	cin >> choice;
 	checkForWrongInput(choice);
+	system("cls");
 	switch (choice)
 	{
 	case 1:
@@ -605,6 +677,6 @@ void menu()
 
 void game()
 {
+	color(7);
 	menu();
-	srand(time(NULL));
 }

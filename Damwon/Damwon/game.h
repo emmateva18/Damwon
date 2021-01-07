@@ -7,6 +7,9 @@
 #include <vector>
 #include <conio.h>
 #include <Windows.h>
+#include "structures.h"
+#include "game.h"
+
 using namespace std;
 
 void color(int color);
@@ -21,13 +24,15 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess);
 
 void generateRandomNumbers(int* numbers);
 
-void checkCoordinates(int& errors, string coordinates, char min, char max, int size, bool duplicates = 0);
+void displayWarnings(int error1, int error2, int error3, char min, char max, int size);
+
+void checkCoordinates(int& errors, string coordinates, char min, char max, int size, bool duplicates);
 
 void userInputCoordinates(string& coordinates);
 
 void customGameValidation(int& variable, int min, int max);
 
-void gameInterface(vector<GUESS> guesses, int tries, int numbers, int playerID = 0);
+void gameInterface(vector<GUESS> guesses, int tries, int numbers, int playerID);
 
 void customMode();
 
