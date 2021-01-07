@@ -11,6 +11,5 @@ struct GUESS
 
 struct PLAYER
 {
-	string coordinates;
 	int tries;
 };
