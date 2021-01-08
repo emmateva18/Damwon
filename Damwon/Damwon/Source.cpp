@@ -63,40 +63,16 @@ void guessInput(string& coordinates)
 	}
 }
 
-void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
+void guessDisplay(int guessedNumAndPos, int guessedNum,int guessedNumAndPosMax,int guessedNumMax, string guess) //10 12
 {
 	int count = guessedNum + guessedNumAndPos;
-	if (guessedNumAndPos > 4)
-	{
-		for (int i = 0; i < (guessedNumAndPos - 4) * 5; i++)
-		{
-			cout << " ";
-		}
-	}
-	cout << "     Guessed numbers and positions";
-	if (guessedNumAndPos > 4)
-	{
-		for (int i = 0; i < (guessedNumAndPos - 4) * 5; i++)
-		{
-			cout << " ";
-		}
-	}
-	cout << "               Player's guesses";
-	if (guessedNum > 4)
-	{
-		for (int i = 0; i < (guessedNum - 4) * 5; i++)
-		{
-			cout << " ";
-		}
-	}
-	cout << "               Guessed numbers" << endl;
 	color(10);
 	for (int i = 0; i < count; i++)
 	{
 		if (i == guessedNumAndPos)
 		{
 			color(12);
-			if (guessedNumAndPos < 4)
+			if (guessedNumAndPosMax < 4)
 			{
 				for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 28; j++)
 				{
@@ -106,7 +82,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 			}
 			else
 			{
-				for (int j = 0; j < 28; j++)
+				for (int j = 0; j < (guessedNumAndPosMax-guessedNumAndPos)*10+28; j++)
 				{
 					cout << " ";
 				}
@@ -121,7 +97,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 		if (i == guessedNumAndPos)
 		{
 			color(12);
-			if (guessedNumAndPos < 4)
+			if (guessedNumAndPosMax < 4)
 			{
 				for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 28; j++)
 				{
@@ -131,7 +107,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 			}
 			else
 			{
-				for (int j = 0; j < 28; j++)
+				for (int j = 0; j < (guessedNumAndPosMax - guessedNumAndPos) * 10 + 28; j++)
 				{
 					cout << " ";
 				}
@@ -146,7 +122,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 		cout << "********* ";
 	}
 	color(12);
-	if (guessedNumAndPos < 4)
+	if (guessedNumAndPosMax < 4)
 	{
 		for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 15 - (guess.size() - 4) / 2; j++)
 		{
@@ -155,7 +131,8 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 	}
 	else
 	{
-		for (int j = 0; j < 15 - (guess.size() - 4) / 2; j++)
+
+		for (int j = 0; j < (guessedNumAndPosMax - guessedNumAndPos) * 10 + 15 - (guess.size() - 4) / 2; j++)
 		{
 			cout << " ";
 		}
@@ -180,7 +157,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 		if (i == guessedNumAndPos)
 		{
 			color(12);
-			if (guessedNumAndPos < 4)
+			if (guessedNumAndPosMax < 4)
 			{
 				for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 28; j++)
 				{
@@ -190,7 +167,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 			}
 			else
 			{
-				for (int j = 0; j < 28; j++)
+				for (int j = 0; j < (guessedNumAndPosMax - guessedNumAndPos) * 10 + 28; j++)
 				{
 					cout << " ";
 				}
@@ -205,7 +182,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 		if (i == guessedNumAndPos)
 		{
 			color(12);
-			if (guessedNumAndPos < 4)
+			if (guessedNumAndPosMax < 4)
 			{
 				for (int j = 0; j < (4 - guessedNumAndPos) * 10 + 28; j++)
 				{
@@ -215,7 +192,7 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, string guess) //10 12
 			}
 			else
 			{
-				for (int j = 0; j < 28; j++)
+				for (int j = 0; j < (guessedNumAndPosMax - guessedNumAndPos) * 10 + 28; j++)
 				{
 					cout << " ";
 				}
@@ -245,7 +222,7 @@ void generateRandomNumbers(int* numbers)
 	} while (numbers[3] == numbers[0] or numbers[3] == numbers[1] or numbers[3] == numbers[2]);
 }
 
-void displayWarnings(int error1, int error2, int error3,int error4, char min, char max,int size)
+void displayWarnings(int error1, int error2, int error3, int error4, char min, char max, int size)
 {
 	system("cls");
 	color(12);
@@ -259,17 +236,18 @@ void displayWarnings(int error1, int error2, int error3,int error4, char min, ch
 	}
 	if (error3)
 	{
-		cout << "\nYour coordinates include more or less numbers than needed! (" << size << ")"<<endl;
+		cout << "\nYour coordinates include more or less numbers than needed! (" << size << ")" << endl;
 	}
 	if (error4)
 	{
-		cout << "\nYour coordinates include spaces!"<< endl;
+		cout << "\nYour coordinates include spaces!" << endl;
 	}
 	color(7);
 }
 
-void checkCoordinates(int& errors, string coordinates, char min, char max, int size, bool duplicates = 0)
+bool checkCoordinates(string coordinates, char min, char max, int size, bool duplicates = 0)
 {
+	int errors = 0;
 	int error1 = 0;
 	int error2 = 0;
 	int error3 = 0;
@@ -306,22 +284,19 @@ void checkCoordinates(int& errors, string coordinates, char min, char max, int s
 		error4++;
 		errors++;
 	}
-	displayWarnings(error1, error2, error3,error4, min, max,size);
+	displayWarnings(error1, error2, error3, error4, min, max, size);
+	return errors;
 }
 
 void userInputCoordinates(string& coordinates)
 {
-	int errors = 0;
 	cout << "Enter coordinates: ";
 	asteriskInput(coordinates);
-	checkCoordinates(errors, coordinates, '0', '7', 4);
-	while (errors > 0)
+	while (checkCoordinates(coordinates, '0', '7', 4))
 	{
-		errors = 0;
 		cout << "Enter new coordinates: ";
 		coordinates = "";
 		asteriskInput(coordinates);
-		checkCoordinates(errors, coordinates, '0', '7', 4);
 	}
 }
 
@@ -336,17 +311,58 @@ void customGameValidation(int& variable, int min, int max)
 		checkForWrongInput(variable);
 	}
 }
-
-void gameInterface(vector<GUESS> guesses, int tries, int numbers, int playerID = 0)
+void headerGameInterface(int& guessedNumAndPos, int& guessedNum, vector<GUESS> guesses, int playerID = 0)
 {
-	system("cls");
+	for (size_t i = 0; i < guesses.size(); i++)
+	{
+		if (guesses[i].guessedPosAndNum > guessedNumAndPos)
+		{
+			guessedNumAndPos = guesses[i].guessedPosAndNum;
+		}
+		if (guesses[i].guessedNum > guessedNum)
+		{
+			guessedNum = guesses[i].guessedNum;
+		}
+	}
 	if (playerID > 0)
 	{
 		cout << "Player " << playerID << endl;
 	}
+	if (guessedNumAndPos > 4)
+	{
+		for (int i = 0; i < (guessedNumAndPos - 4) * 5; i++)
+		{
+			cout << " ";
+		}
+	}
+	cout << "     Guessed numbers and positions";
+	if (guessedNumAndPos > 4)
+	{
+		for (int i = 0; i < (guessedNumAndPos - 4) * 5; i++)
+		{
+			cout << " ";
+		}
+	}
+	cout << "               Player's guesses";
+	if (guessedNum > 4)
+	{
+		for (int i = 0; i < (guessedNum - 4) * 5; i++)
+		{
+			cout << " ";
+		}
+	}
+	cout << "               Guessed numbers" << endl;
+}
+void gameInterface(vector<GUESS> guesses, int tries, int numbers, int playerID = 0)
+{
+	int guessedNumAndPos = 0;
+	int guessedNum = 0;
+	system("cls");
+	headerGameInterface(guessedNumAndPos, guessedNum, guesses, playerID);
 	for (size_t i = 0; i < guesses.size(); i++)
 	{
-		guessDisplay(guesses[i].guessedPosAndNum, guesses[i].guessedNum, guesses[i].guess);
+		guessDisplay(guesses[i].guessedPosAndNum, guesses[i].guessedNum,guessedNumAndPos,guessedNum, guesses[i].guess);
+		cout << endl;
 	}
 	cout << endl;
 	cout << setw(105) << "Tries remaining:" << tries << endl;
@@ -361,7 +377,6 @@ void customMode()
 	int possibleRange;
 	int guessedNumberAndPosCount = 0;
 	int guessedCount = 0;
-	int errors = 0;
 	int max = 0;
 	int i = 0;
 	int j = 0;
@@ -452,7 +467,7 @@ void customMode()
 			}
 			break;
 
-		default: 
+		default:
 			cout << "Invalid option!\nPlease try again: ";
 			cin >> choice;
 			checkForWrongInput(choice);
@@ -494,13 +509,10 @@ void customMode()
 			guessedCount = 0;
 			cout << "Enter coordinates: ";
 			getline(cin, guess);
-			checkCoordinates(errors, guess, '0', char(possibleRange) + '0', countNumbers, duplicates);
-			while (errors > 0)
+			while (checkCoordinates(guess, '0', char(possibleRange) + '0', countNumbers, duplicates))
 			{
-				errors = 0;
 				cout << "\nEnter new coordinates: ";
 				getline(cin, guess);
-				checkCoordinates(errors, guess, '0', char(possibleRange) + '0', countNumbers, duplicates);
 			}
 			temporaryCoordinates = coordinates[k];
 			for (size_t i = 0; i < coordinates[k].length(); i++) {
@@ -580,7 +592,6 @@ void guesses(string coordinates)
 	int guessedNumbers = 0;
 	int tries = 13;
 	int errors = 0;
-	int guessed[4];
 	bool win = 0;
 	string guess;
 	GUESS temp;
@@ -589,42 +600,31 @@ void guesses(string coordinates)
 	cout << "\nMake a guess\n" << endl;
 	cout << "You have to enter 4 different numbers without any spaces from 0 to 7!\n";
 	while (win != 1 and tries != 0) {
-		for (int i = 0; i < 4; i++)
-		{
-			guessed[i] = 8;   // unique value
-		}
 		guessedNumberAndPos = 0;
 		guessedNumbers = 0;
 		cout << "Enter coordinates: ";
 		getline(cin, guess);
-		checkCoordinates(errors, guess, '0', '7', 4);
-		while (errors > 0)
+		while (checkCoordinates(guess, '0', '7', 4))
 		{
-			errors = 0;
 			cout << "\nEnter new coordinates: ";
 			getline(cin, guess);
-			checkCoordinates(errors, guess, '0', '7', 4);
 		}
 		for (size_t i = 0; i < coordinates.length(); i++) {
 			if (guess[i] == coordinates[i]) {
-				guessed[guessedNumberAndPos++] = guess[i];
+				guessedNumberAndPos++;
 			}
 		}
 		for (size_t i = 0; i < coordinates.length(); i++)
 		{
 			for (int j = 0; j < coordinates.length(); j++)
 			{
-				if (guess[i] == guessed[j])
-				{
-					i++;
-					j = -1;
-				}
-				else if (guess[i] == coordinates[j])
+				if (guess[i] == coordinates[j])
 				{
 					guessedNumbers++;
 				}
 			}
 		}
+		guessedNumbers -= guessedNumberAndPos;
 		temp.guessedPosAndNum = guessedNumberAndPos;
 		temp.guessedNum = guessedNumbers;
 		temp.guess = guess;
@@ -652,11 +652,11 @@ void menu()
 	int numbers[4];
 	string coordinates;
 	stringstream ss;
-	cout << char(219) << "                Welcome to the game!                " <<char(219)<< endl;
+	cout << char(219) << "                Welcome to the game!                " << char(219) << endl;
 	cout << char(219);
 	for (int i = 0; i < 52; i++)
 		cout << char(254);
-	cout <<char(219)<< endl;
+	cout << char(219) << endl;
 	cout << char(219) << "1. Singleplayer     | Guess the coordinates         " << char(219) << endl;
 	cout << char(219) << "2. Multiplayer      | Create and guess coordinates  " << char(219) << endl;
 	cout << char(219) << "3. Custom mode      | Create your own rules and play" << char(219) << endl;
@@ -664,7 +664,7 @@ void menu()
 	for (int i = 0; i < 52; i++)
 		cout << char(254);
 	cout << char(219) << endl;
-	cout <<char(219)<< " Your choice: ";
+	cout << char(219) << " Your choice: ";
 	cin >> choice;
 	checkForWrongInput(choice);
 	system("cls");

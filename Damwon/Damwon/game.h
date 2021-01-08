@@ -26,7 +26,7 @@ void generateRandomNumbers(int* numbers);
 
 void displayWarnings(int error1, int error2, int error3, char min, char max, int size);
 
-void checkCoordinates(int& errors, string coordinates, char min, char max, int size, bool duplicates);
+bool checkCoordinates(string coordinates, char min, char max, int size, bool duplicates);
 
 void userInputCoordinates(string& coordinates);
 
