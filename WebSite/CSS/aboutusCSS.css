@@ -38,7 +38,7 @@
 }
 
 header {
-	background-image: url(aboutUs.jpg);
+	background-image: url(CSSImages/aboutUs.jpg);
 	height: 100vh;
 	background-size: cover;
 	background-position: center;
@@ -75,25 +75,12 @@ html
 	margin: 8px;
 }
   
-.about-section 
-{
-	padding: 50px;
-	text-align: center;
-	background-color: #474e5d;
-	color: white;
-}
-  
+
 .container 
 {
 	padding: 0 16px;
 }
-  
-.container::after, .row::after 
-{
-	content: "";
-	clear: both;
-	display: table;
-}
+
 @media screen and (max-width: 650px) {
 	.column {
 	  width: 100%;
@@ -103,7 +90,7 @@ html
 
 .anchor{
 	position:absolute;
-	top:40%;
+	top:30%;
 	width:100%;
 	text-align:center;
 	
@@ -114,10 +101,7 @@ html
 .anchor p{
 	font-size: 15px;
 }
-.anchor a:hover{
-	
-	opacity: 0.75;
-}
+
   
 .anchor .border{
 	background-color:#111;
@@ -129,3 +113,21 @@ html
 .anchor .border.trans{
 	background-color:transparent;
 }
+.row{
+	margin-top: 18%;
+
+}
+.names{
+font-family: Verdana ;
+color: rgb(230, 172, 0);
+
+}
+p{
+	font-family: Tahoma ;
+	color:	rgb(230, 172, 0);
+	font-size: 17px;
+	font-weight:bold;
+
+}
+
+
