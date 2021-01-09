@@ -45,7 +45,9 @@ header {
 	background-position: center;
 	position: relative;
 }
-
+body{
+	background-color: gray;
+}
 
 .title{
 	position: absolute;
