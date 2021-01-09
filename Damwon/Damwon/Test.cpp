@@ -2,12 +2,12 @@
 
 void test_ensureNumbersAreUniqe()
 {
-	int number[4];
+	int numbers[4];
 	bool success = true;
 
 	generateRandomNumbers(numbers);
 
-	if (numers[0] == numbers[1] || numbers[0] == numbers[2] || numbers[0] == numbers[3] || numbers[1] == numbers[2] 
+	if (numbers[0] == numbers[1] || numbers[0] == numbers[2] || numbers[0] == numbers[3] || numbers[1] == numbers[2]
 		|| numbers[1] == numbers[3] || numbers[2] == numbers[3])
 	{
 		success = false;
@@ -32,7 +32,7 @@ void test_errorsAccuracy()
 	// Actual  : 1
 	errors = checkCoordinates("124", '0', '9', 4, 0);
 	cout << (errors == 1) << endl;
-	
+
 	// Expected: 3
 	// Actual  : 3
 	errors = checkCoordinates("114", '0', '9', 4, 0);

@@ -2,9 +2,9 @@
 
 int main() 
 {
-	//test_ensureNumbersAreUniqe();
+	test_ensureNumbersAreUniqe();
 
-	//void test_errorsAccuracy();
+	test_errorsAccuracy();
 
 	srand(time(NULL));
 
