@@ -2,9 +2,58 @@
 
 HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE);
 
-void color(int color)
+//==================================================================\\
+////////////////////////******DATA LAYER******\\\\\\\\\\\\\\\\\\\\\\\\
+\\==================================================================//
+
+
+bool checkCoordinates(string coordinates, char min, char max, int size, bool duplicates = 0)
 {
-	SetConsoleTextAttribute(console, color);
+	bool error1 = 0; // Duplicates
+	bool error2 = 0; // Chars out of the possible range
+	bool error3 = 0; // More or less numbers than needed
+	bool error4 = 0; // Contains spaces
+
+	if (duplicates == 0)
+	{
+		for (size_t i = 0; i < coordinates.length(); i++)
+		{
+			for (size_t j = 0; j < coordinates.length(); j++)
+			{
+				if (coordinates[i] == coordinates[j] and i != j)
+				{
+					error1 = true;
+				}
+			}
+		}
+	}
+
+	for (size_t i = 0; i < coordinates.length(); i++)
+	{
+		if (coordinates[i] < min or coordinates[i]> max)
+		{
+			error2 = true;
+		}
+	}
+
+	if (coordinates.size() != size)
+	{
+		error3 = true;
+	}
+
+	if (coordinates.find(' ') != string::npos)
+	{
+		error4 = true;
+	}
+
+	displayWarnings(error1, error2, error3, error4, min, max, size);
+
+	if (error1 or error2 or error3 or error4)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void checkForWrongInput(int& variable)
@@ -16,6 +65,23 @@ void checkForWrongInput(int& variable)
 		cin.ignore(256, '\n');
 		cin >> variable;
 	}
+}
+
+void generateRandomNumbers(int* numbers)
+{
+	numbers[0] = rand() % 8;
+	do
+	{
+		numbers[1] = rand() % 8;
+	} while (numbers[0] == numbers[1]);
+	do
+	{
+		numbers[2] = rand() % 8;
+	} while (numbers[2] == numbers[0] or numbers[2] == numbers[1]);
+	do
+	{
+		numbers[3] = rand() % 8;
+	} while (numbers[3] == numbers[0] or numbers[3] == numbers[1] or numbers[3] == numbers[2]);
 }
 
 void asteriskInput(string& coordinates)
@@ -42,6 +108,16 @@ void asteriskInput(string& coordinates)
 
 		number = _getch();
 	}
+}
+
+//==========================================================================\\
+////////////////////////******PRESENTATION LAYER******\\\\\\\\\\\\\\\\\\\\\\\\
+\\==========================================================================//
+
+//Colors text
+void color(int color)
+{
+	SetConsoleTextAttribute(console, color);
 }
 
 void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax, string guess) //10 12
@@ -212,21 +288,17 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax,
 	color(14);
 }
 
-void generateRandomNumbers(int* numbers)
+void userInputCoordinates(string& coordinates)
 {
-	numbers[0] = rand() % 8;
-	do
+	cout << "Enter coordinates: ";
+	asteriskInput(coordinates);
+
+	while (checkCoordinates(coordinates, '0', '7', 4))
 	{
-		numbers[1] = rand() % 8;
-	} while (numbers[0] == numbers[1]);
-	do
-	{
-		numbers[2] = rand() % 8;
-	} while (numbers[2] == numbers[0] or numbers[2] == numbers[1]);
-	do
-	{
-		numbers[3] = rand() % 8;
-	} while (numbers[3] == numbers[0] or numbers[3] == numbers[1] or numbers[3] == numbers[2]);
+		cout << "Enter new coordinates: ";
+		coordinates = "";
+		asteriskInput(coordinates);
+	}
 }
 
 void displayWarnings(int error1, int error2, int error3, int error4, char min, char max, int size)
@@ -249,68 +321,6 @@ void displayWarnings(int error1, int error2, int error3, int error4, char min, c
 		cout << "\nYour coordinates include spaces!" << endl;
 	}
 	color(14);
-}
-
-bool checkCoordinates(string coordinates, char min, char max, int size, bool duplicates = 0)
-{
-	bool error1 = 0; // Duplicates
-	bool error2 = 0; // Chars out of the possible range
-	bool error3 = 0; // More or less numbers than needed
-	bool error4 = 0; // Contains spaces
-
-	if (duplicates == 0)
-	{
-		for (size_t i = 0; i < coordinates.length(); i++)
-		{
-			for (size_t j = 0; j < coordinates.length(); j++)
-			{
-				if (coordinates[i] == coordinates[j] and i != j)
-				{
-					error1 = true;
-				}
-			}
-		}
-	}
-
-	for (size_t i = 0; i < coordinates.length(); i++)
-	{
-		if (coordinates[i] < min or coordinates[i]> max)
-		{
-			error2 = true;
-		}
-	}
-
-	if (coordinates.size() != size)
-	{
-		error3 = true;
-	}
-
-	if (coordinates.find(' ') != string::npos)
-	{
-		error4 = true;
-	}
-
-	displayWarnings(error1, error2, error3, error4, min, max, size);
-
-	if (error1 or error2 or error3 or error4)
-	{
-		return true;
-	}
-
-	return false;
-}
-
-void userInputCoordinates(string& coordinates)
-{
-	cout << "Enter coordinates: ";
-	asteriskInput(coordinates);
-
-	while (checkCoordinates(coordinates, '0', '7', 4))
-	{
-		cout << "Enter new coordinates: ";
-		coordinates = "";
-		asteriskInput(coordinates);
-	}
 }
 
 void customGameValidation(int& variable, int min, int max)
@@ -636,7 +646,7 @@ void customMode()
 	}
 }
 
-void guesses(int choice)
+void defaultMode(int choice)
 {
 	int guessedNumbersAndPos = 0;
 	int guessedNumbersAndPosMax = 0;
@@ -779,11 +789,11 @@ bool menu()
 	switch (choice)
 	{
 	case 1:
-		guesses(choice);
+		defaultMode(choice);
 		break;
 
 	case 2:
-		guesses(choice);
+		defaultMode(choice);
 		break;
 
 	case 3:
@@ -795,6 +805,7 @@ bool menu()
 
 	default:
 		cout << "Invalid choice!";
+		showMenu();
 		cin >> choice;
 	}
 

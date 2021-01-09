@@ -8,27 +8,34 @@
 #include <conio.h>
 #include <Windows.h>
 #include "structures.h"
-#include "game.h"
 
 using namespace std;
 
-void color(int color);
-
-void checkForWrongInput(int& variable);
-
-void asteriskInput(string& coordinates);
-
-void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax, string guess);
-
-void generateRandomNumbers(int* numbers);
-
-void displayWarnings(int error1, int error2, int error3, int error4, char min, char max, int size);
+//==================================================================\\
+////////////////////////******DATA LAYER******\\\\\\\\\\\\\\\\\\\\\\\\
+\\==================================================================//
 
 bool checkCoordinates(string coordinates, char min, char max, int size, bool duplicates);
 
+void checkForWrongInput(int& variable);
+
+void generateRandomNumbers(int* numbers);
+
+void asteriskInput(string& coordinates);
+
+//==========================================================================\\
+////////////////////////******PRESENTATION LAYER******\\\\\\\\\\\\\\\\\\\\\\\\
+\\==========================================================================//
+
+void color(int color);
+
+void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax, string guess);
+
 void userInputCoordinates(string& coordinates);
 
-void customGameValidation(int& variable, int min, int max);
+void displayWarnings(int error1, int error2, int error3, int error4, char min, char max, int size);
+
+void customGameValidation(int& variable, int min, int max); ////
 
 void headerGameInterface(int guessedNumAndPos, int guessedNum, vector<GUESS> guesses, int playerID);
 
@@ -36,14 +43,10 @@ void gameInterface(vector<GUESS> guesses, int tries, int guessedNumAndPosMax, in
 
 void customMode();
 
-void guesses(int choice);
+void defaultMode(int choice);
 
 void showMenu();
 
 bool menu();
 
 void game();
-
-void test_ensureNumbersAreUniqe();
-
-void test_errorsAccuracy();
