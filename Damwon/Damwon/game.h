@@ -43,3 +43,7 @@ void showMenu();
 bool menu();
 
 void game();
+
+void test_ensureNumbersAreUniqe();
+
+void test_errorsAccuracy();
