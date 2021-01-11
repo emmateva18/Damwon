@@ -37,7 +37,9 @@
 	color: #000;
 }
   
-
+body{
+    background-color: gray;
+}
 
 
 
@@ -63,7 +65,7 @@
 }
   
 #SubmitButton {
-    background-color: #4CAF50;
+    background-color: #8c8c8c;
     color: white;
     padding: 15px 20px;
     border: none;

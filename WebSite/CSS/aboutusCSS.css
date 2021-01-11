@@ -48,7 +48,7 @@ header {
 
 
 body{
-    background-color: #0072B5;
+    background-color: gray;
 }
 
 html 
@@ -119,12 +119,12 @@ html
 }
 .names{
 font-family: Verdana ;
-color: rgb(230, 172, 0);
+color: black;
 
 }
 p{
 	font-family: Tahoma ;
-	color:	rgb(230, 172, 0);
+	color:black;
 	font-size: 17px;
 	font-weight:bold;
 
