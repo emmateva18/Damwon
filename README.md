@@ -19,7 +19,7 @@ Our application is created with the help of the development environment of VS 20
 <a name="documentation"></a>
 ## 3. Documentation
 * [Documentation]()
-* [Master Plan]()
+* [Master Plan](https://codingburgas-my.sharepoint.com/:w:/g/personal/emmateva18_codingburgas_bg/EXB_1UvwkHZDuAD_yxGqeNoBlSOLPofqsyfKhv-FPbac1A?e=61gLVn)
 * [Presentation]()
 
 <a name="technologies"></a>
