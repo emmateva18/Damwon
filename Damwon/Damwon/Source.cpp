@@ -120,7 +120,7 @@ void color(int color)
 	SetConsoleTextAttribute(console, color);
 }
 
-void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax, string guess) //10 12
+void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax, string guess)
 {
 	int count = guessedNum + guessedNumAndPos;
 
