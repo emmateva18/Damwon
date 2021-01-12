@@ -5,8 +5,8 @@
 1. [Description](#desc)
 2. [Our Team](#team)
 3. [Documentation](#documentation)
-4. [How to download the game](#howToDownload)
-5. [Used Technologies](#technologies)
+4. [Used Technologies](#technologies)
+5. [How to download the game](#howToDownload)
 
 <a name="desc"></a>
 ## 1. Description
@@ -25,8 +25,15 @@ Our application is created with the help of the development environment of VS 20
 * [Master Plan](https://codingburgas-my.sharepoint.com/:w:/g/personal/emmateva18_codingburgas_bg/EXB_1UvwkHZDuAD_yxGqeNoBlSOLPofqsyfKhv-FPbac1A?e=61gLVn)
 * [Presentation]()
 
+<a name="technologies"></a>
+
+## 4. Used Technologies
+* C++
+* HTLM5
+* CSS3
+
 <a name="howToDownload"></a>
-## 4. How to download the game
+## 5. How to download the game
 <b> Since we do not have the opportunity to purchase an SSL certificate, a message will appear that the game is not safe.</b>
 <h4>Step 1:</h4>
 
@@ -35,6 +42,12 @@ Open the website and click on "Download Our Game".
 ![step 1](https://user-images.githubusercontent.com/58329141/104287905-cb3a1480-54bf-11eb-9bd5-75c972b646ca.jpg)
 
 <h4>Step 2:</h4>
+
+The download shoud show up at the bottom of the screen. When it downloads, click "Keep".
+
+![step 2](https://user-images.githubusercontent.com/58329141/104288628-bb6f0000-54c0-11eb-917d-18a397d912a4.jpg)
+
+<h4>Final step (or Step 5 in Microsoft Edge): </h4>
 
 The download shoud show up at the bottom of the screen. When it downloads, click "Keep".
 
@@ -52,10 +65,3 @@ Click on the three dots and then "Keep".
 Click on "Show more" and then "Keep anyway".
 
 ![step 4 me](https://user-images.githubusercontent.com/58329141/104291320-11917280-54c4-11eb-916a-8dffd166efd1.jpg)
-
-<a name="technologies"></a>
-
-## 5. Used Technologies
-* C++
-* HTLM5
-* CSS3
