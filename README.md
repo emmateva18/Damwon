@@ -1,5 +1,7 @@
 # ![logoDamwon-removebg-preview](https://user-images.githubusercontent.com/58329141/104249349-eed76d80-5473-11eb-821d-ecc0ea594277.png)
+### <i>Our Website : https://emmateva18.github.io/DamwonDeploy/</i>
 
+## Table of Contents
 1. [Description](#desc)
 2. [Our Team](#team)
 3. [Documentation](#documentation)
@@ -8,7 +10,7 @@
 
 <a name="desc"></a>
 ## 1. Description
-Our application is created with the help of the development environment of VS 2019. We made a game more known as “Bulls and cows” with the programming language c++. The user needs to guess coordinates (random numbers in exact order) and they have limited tries to guess. They get information about how many numbers they have guessed and also how many are in the correct place after each try.
+Our application is created with the help of the development environment of VS 2019. We made a game more known as “Bulls and cows” with the programming language C++. The user needs to guess coordinates (random numbers in exact order) and they have limited tries to guess. They get information about how many numbers they have guessed and also how many are in the correct place after each try.
 <a name="team"></a>
 ## 2. Our Team
 - Ema Mateva (Project Manager)
