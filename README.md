@@ -49,9 +49,13 @@ The download shoud show up at the bottom of the screen. When it downloads, click
 
 <h4>Final step (or Step 5 in Microsoft Edge): </h4>
 
-The download shoud show up at the bottom of the screen. When it downloads, click "Keep".
+Click "More info".
 
-![step 2](https://user-images.githubusercontent.com/58329141/104288628-bb6f0000-54c0-11eb-917d-18a397d912a4.jpg)
+![new step](https://user-images.githubusercontent.com/58329141/104387857-a76ae300-5540-11eb-8f57-6c80d0f2ee2f.png)
+
+Then click "Run anyway".
+
+![new step 2](https://user-images.githubusercontent.com/58329141/104387862-aa65d380-5540-11eb-9f44-6c0e62aa1984.png)
 
 <h3> In Microsoft Edge:</h3>
 <h4>Step 3:</h4>
