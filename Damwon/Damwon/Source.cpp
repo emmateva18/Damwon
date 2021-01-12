@@ -13,30 +13,35 @@ bool checkCoordinates(string coordinates, char min, char max, int size, bool dup
 	bool error2 = 0; //Chars out of the possible range
 	bool error3 = 0; //More or less numbers than needed
 	bool error4 = 0; //Contains spaces
-
+	int countSpaces = 0;
 	if (duplicates == 0)
 	{
 		for (size_t i = 0; i < coordinates.length(); i++)
 		{
 			for (size_t j = 0; j < coordinates.length(); j++)
 			{
-				if (coordinates[i] == coordinates[j] and i != j)
+				if (coordinates[i] == coordinates[j] and i != j and coordinates[i] != ' ' and coordinates[j] != ' ')
 				{
 					error1 = true;
 				}
 			}
 		}
 	}
-
 	for (size_t i = 0; i < coordinates.length(); i++)
 	{
-		if (coordinates[i] < min or coordinates[i]> max)
+		if (coordinates[i] == ' ')
+		{
+			countSpaces++;
+		}
+	}
+	for (size_t i = 0; i < coordinates.length(); i++)
+	{
+		if ((coordinates[i] < min or coordinates[i]> max) and coordinates[i]!=' ')
 		{
 			error2 = true;
 		}
 	}
-
-	if (coordinates.size() != size)
+	if (coordinates.size() != size + countSpaces)
 	{
 		error3 = true;
 	}
@@ -61,7 +66,7 @@ void checkForWrongInput(int& variable)
 {
 	while (cin.fail())
 	{
-		cout << "Enter a number, please!" << endl;
+		cout << "Enter a number, please: ";
 		cin.clear();
 		cin.ignore(256, '\n');
 		cin >> variable;
@@ -304,12 +309,12 @@ void guessDisplay(int guessedNumAndPos, int guessedNum, int guessedNumAndPosMax,
 //Forces you to write proper coordinates with asterisk input
 void userInputCoordinates(string& coordinates)
 {
-	cout << "Enter coordinates: ";
+	cout << "Enter coordinates to be guessed: ";
 	asteriskInput(coordinates);
 
 	while (checkCoordinates(coordinates, '0', '7', 4))
 	{
-		cout << "Enter new coordinates: ";
+		cout << "Enter new coordinates to be guessed: ";
 		coordinates = "";
 		asteriskInput(coordinates);
 	}
@@ -511,9 +516,12 @@ void customMode()
 			break;
 
 		default:
-			cout << "Invalid option!\nPlease try again: ";
-			cin >> choice;
-			checkForWrongInput(choice);
+			while (choice != 1 and choice != 2)
+			{
+				cout << "Invalid option!\nPlease try again: ";
+				cin >> choice;
+				checkForWrongInput(choice);
+			}
 			break;
 		}
 	}
@@ -779,7 +787,7 @@ void defaultMode(int choice)
 void showMenu()
 {
 	color(14);
-	cout << endl << char(219) << "                        Game                        " << char(219) << endl << char(219);
+	cout << endl << endl << char(219) << "                        Game                        " << char(219) << endl << char(219);
 
 	for (int i = 0; i < 52; i++)
 		cout << char(254);
@@ -828,9 +836,10 @@ bool menu()
 		return false;
 
 	default:
+		system("cls");
 		cout << "Invalid choice!";
-		showMenu();
-		cin >> choice;
+		menu();
+		break;
 	}
 
 	return true;
