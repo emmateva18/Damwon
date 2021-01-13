@@ -23,7 +23,7 @@ Our application is created with the help of the development environment of VS 20
 ## 3. Documentation
 * [Documentation](https://codingburgas-my.sharepoint.com/:w:/g/personal/emmateva18_codingburgas_bg/EUIEaxfoIR1AoCMC8E7u4IkBxT4r1oHaHuYMGRcySBId3w?rtime=8WCRTc-22Eg)
 * [Master Plan](https://codingburgas-my.sharepoint.com/:w:/g/personal/emmateva18_codingburgas_bg/EXB_1UvwkHZDuAD_yxGqeNoBlSOLPofqsyfKhv-FPbac1A?e=61gLVn)
-* [Presentation]()
+* [Presentation](https://codingburgas-my.sharepoint.com/:p:/g/personal/emmateva18_codingburgas_bg/EXdFQR54xaZFkB0NoeKGTTYBOa0ryWgebBNqrTPj92hhSQ?e=cbTmbu)
 
 <a name="technologies"></a>
 
